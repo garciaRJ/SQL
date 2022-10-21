@@ -26,4 +26,4 @@ SELECT * FROM clothing_store ORDER BY aisle;
 SELECT * FROM clothing_store ORDER BY quantity;
 
 --display database ordered by price
-SELECT * FROM clothing_store ORDER BY price, asc;
+SELECT * FROM clothing_store ORDER BY price asc;
