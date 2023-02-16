@@ -1,29 +1,32 @@
 --create a clothing store database
 
-CREATE TABLE clothing_store (ID integer primary key, name text, aisle integer, price integer, quantity integer);
+CREATE TABLE thrift_store (ID INTEGER PRIMARY KEY, name TEXT, price INTEGER, aisle INTEGER, quantity INTEGER);
+
+INSERT INTO thrift_store VALUES (1, "women tops", 5, 3, 150);
+INSERT INTO thrift_store VALUES (2, "men clothing" , 6, 4, 200);
+INSERT INTO thrift_store VALUES (3, "linens", 10, 6, 50);
+INSERT INTO thrift_store VALUES (4, "shoes", 10, 7, 60);
+INSERT INTO thrift_store VALUES (5, "baby clothes", 5, 8, 55);
+INSERT INTO thrift_store VALUES (6, "jewelry", 10, 1, 300);
+INSERT INTO thrift_store VALUES (7, "furniture", 25, 2, 15);
+INSERT INTO thrift_store VALUES (8, "kitchen", 8, 5, 88);
+INSERT INTO thrift_store VALUES (9, "boardgames", 2, 10, 20);
+INSERT INTO thrift_store VALUES (10, "garden", 3, 11, 40);
+INSERT INTO thrift_store VALUES (11, "books", 2, 8, 90);
+INSERT INTO thrift_store VALUES (12, "socks", 2, 15, 18);
+INSERT INTO thrift_store VALUES (13, "homegoods", 10, 16, 90);
+INSERT INTO thrift_store VALUES (14, "artwork", 5, 19, 20);
+INSERT INTO thrift_store VALUES (15, "mirrors", 10, 20, 10);
 
 
-INSERT INTO clothing_store VALUES (1, "dress",5, 60.50, 25);
-INSERT INTO clothing_store VALUES (2, "pants", 6, 30.50, 50);
-INSERT INTO clothing_store VALUES (3, "tops", 1, 14.50, 20);
-INSERT INTO clothing_store VALUES (4, "coats", 2, 75, 30);
-INSERT INTO clothing_store VALUES (5, "socks", 3, 10, 50);
-INSERT INTO clothing_store VALUES (6, "hats", 4, 15, 20);
-INSERT INTO clothing_store VALUES (7, "shoes", 7, 45, 15);
-INSERT INTO clothing_store VALUES (8, "underwear", 8, 10, 60);
-INSERT INTO clothing_store VALUES (9, "knit_wear", 9, 30, 15);
-INSERT INTO clothing_store VALUES (10, "shorts", 10, 25, 5);
-INSERT INTO clothing_store VALUES (11, "trousers", 11, 30, 2);
-INSERT INTO clothing_store VALUES (12, "jewelry", 12, 18, 8);
-INSERT INTO clothing_store VALUES (13, "sandals", 13, 20, 2);
-INSERT INTO clothing_store VALUES (14, "swimwear", 14, 30, 1);
-INSERT INTO clothing_store VALUES (15, "active_wear", 15, 18, 19);
+--display the database ordered by price 
+SELECT * FROM thrift_store ORDER BY price;
 
---display database ordered by aisle
-SELECT * FROM clothing_store ORDER BY aisle;
+--display list of items with 20 or more in quantity
+SELECT * FROM thrift_store WHERE quantity > 20 ORDER BY quantity ASC;
 
---display database ordered by quantitiy
-SELECT * FROM clothing_store ORDER BY quantity;
+--which item has the most quantity?
 
---display database ordered by price
-SELECT * FROM clothing_store ORDER BY price asc;
+SELECT name, MAX(quantity) FROM thrift_store;
+
+
