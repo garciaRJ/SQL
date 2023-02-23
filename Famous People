@@ -1,0 +1,72 @@
+/* First, I created a table of actors from my favorite movies*/
+
+CREATE TABLE actors (id INTEGER PRIMARY KEY AUTOINCREMENT,
+fullname TEXT,
+age INTEGER,
+ethnicity TEXT,
+total_awards INTEGER);
+
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("Ashton Kutcher", 45, "American", 16);
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("Mila Kunis", 39, "Ukrainian",9);
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("Emily Blunt", 40, "British", 6);
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("John Krasinski", 43, "Polish", 4);
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("Nichole Kidman", 55, "American_Australian", 109);
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("Laura Dern", 56, "American", 61);
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("Zoe Saldana", 44, "PuertoRican", 9);
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("Sam Worthington", 46, "English_Australian", 4);
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("Kate Winslet", 47, "British", 20);
+INSERT INTO actors (fullname, age, ethnicity, total_awards) VALUES ("Reese Witherspoon", 46, "American", 28);
+
+
+/* Then I added another table with the list of movies and release year*/
+
+CREATE TABLE movies (id INTEGER PRIMARY KEY AUTOINCREMENT,
+title TEXT,
+actor_id INTEGER,
+release_year INTEGER);
+
+INSERT INTO movies (title, actor_id, release_year) VALUES ("Avatar 2", 7, 2022);
+INSERT INTO movies (title, actor_id, release_year) VALUES ("Wild", 6, 2014);
+INSERT INTO movies (title, actor_id, release_year) VALUES ("Avatar 2", 8, 2022);
+INSERT INTO movies (title, actor_id, release_year) VALUES ("Avatar 2", 9, 2022);
+INSERT INTO movies (title, actor_id, release_year) VALUES ("Wild", 10, 2014);
+INSERT INTO movies (title, actor_id, release_year) VALUES ("The Quiet Place", 4, 2018);
+INSERT INTO movies (title, actor_id, release_year) VALUES ("The Quiet Place", 3, 2018);
+INSERT INTO movies (title, actor_id, release_year) VALUES ("Bombshell", 5, 2019);
+INSERT INTO movies (title, actor_id, release_year) VALUES ("Bad Moms", 2, 2016);
+INSERT INTO movies (title, actor_id, release_year) VALUES ("YourPlaceOrMine", 1, 2023);
+
+/* I then created a table of actors that are married to each other*/
+
+CREATE TABLE married_actors (id INTEGER PRIMARY KEY AUTOINCREMENT,
+actor1_id INTEGER,
+actor2_id INTEGER);
+      
+INSERT INTO married_actors (actor1_id, actor2_id) VALUES (1, 2);
+INSERT INTO married_actors (actor1_id, actor2_id) VALUES (3, 4);
+
+
+/*Next I compared which actors appeared in which films and provided the year the film was released by joining both tables. */
+
+SELECT actors.fullname, movies.title AS movie_title, movies.release_year
+FROM actors
+LEFT OUTER JOIN movies
+ON actors.id=movies.actor_id
+ORDER BY release_year desc;
+
+/*I also compared list of actors that are married to each other by combining multiple joins. */
+
+SELECT a.fullname, b.fullname
+FROM married_actors
+JOIN actors a
+ON married_actors.actor1_id=a.id
+JOIN actors b
+ON married_actors.actor2_id=b.id;
+
+/*Lastly, I filtered records by only showing the actor with the highest awards*/
+
+SELECT fullname as most_award_winning_actress
+FROM actors
+WHERE total_awards>100;
+
+
