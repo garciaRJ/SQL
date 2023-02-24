@@ -17,4 +17,10 @@ ORDER BY title asc;
 
 /*Who was the Director for the movie Bright Star?*/
 
+SELECT "CharlotteChaze/BreakIntoTech"."netflix_people".director, "CharlotteChaze/BreakIntoTech"."netflix_titles_info".title
+FROM "CharlotteChaze/BreakIntoTech"."netflix_people"
+LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ON "CharlotteChaze/BreakIntoTech"."netflix_people".show_id="CharlotteChaze/BreakIntoTech"."netflix_titles_info".show_id
+WHERE title='Bright Star';
+
 
