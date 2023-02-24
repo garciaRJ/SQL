@@ -1,0 +1,20 @@
+/*How many movie titles are there in the database? (movies only, not tv shows)*/
+
+SELECT count (*)
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type='Movie';
+
+/*When was the most recent batch of tv shows and/or movies added to the database?*/
+
+SELECT max (date_added)
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+
+/*List all the movies and tv shows in alphabetical order.*/
+
+SELECT title
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ORDER BY title asc;
+
+/*Who was the Director for the movie Bright Star?*/
+
+
