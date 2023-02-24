@@ -1,3 +1,6 @@
+
+#In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
+
 /*How many movie titles are there in the database? (movies only, not tv shows)*/
 
 SELECT count (*)
@@ -17,10 +20,18 @@ ORDER BY title asc;
 
 /*Who was the Director for the movie Bright Star?*/
 
-SELECT "CharlotteChaze/BreakIntoTech"."netflix_people".director, "CharlotteChaze/BreakIntoTech"."netflix_titles_info".title
-FROM "CharlotteChaze/BreakIntoTech"."netflix_people"
-LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
-ON "CharlotteChaze/BreakIntoTech"."netflix_people".show_id="CharlotteChaze/BreakIntoTech"."netflix_titles_info".show_id
+SELECT director, title
+FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people
+LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" title
+ON people.show_id=title.show_id
 WHERE title='Bright Star';
+
+/*What is the oldest movie in the database and what year was it made?*/
+
+SELECT title, release_year
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type='Movie'
+ORDER BY release_year LIMIT 1;
+
 
 
