@@ -1,3 +1,5 @@
+#In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data. 
+
 /*1. How many orders were placed in January?*/
 
 SELECT COUNT(orderid)
@@ -83,6 +85,13 @@ GROUP BY product;
 
 /*7. How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?*/
 
+SELECT count (distinct cust.acctnum), AVG(feb.quantity*price)
+FROM BIT_DB.FebSales feb
+LEFT JOIN BIT_DB.customers cust
+ON feb.OrderID=cust.order_id
+WHERE quantity> 2
+AND length (orderid)=6
+AND orderid <> 'Order ID';
 
 
 
