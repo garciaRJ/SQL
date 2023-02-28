@@ -1,0 +1,90 @@
+/*1. How many orders were placed in January?*/
+
+SELECT COUNT(orderid)
+FROM BIT_DB.JanSales
+WHERE length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+/*2. How many of those orders were for an iPhone?*/
+
+SELECT product, SUM (quantity)
+FROM BIT_DB.JanSales
+WHERE product='iPhone';
+
+###Question 2, answer #2 ###
+
+SELECT COUNT(orderid)
+FROM BIT_DB.JanSales
+WHERE Product='iPhone'
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+/*3. Select the customer account numbers for all the orders that were placed in February. */
+
+SELECT distinct customers.acctnum
+FROM BIT_DB.customers
+LEFT OUTER JOIN BIT_DB.FebSales
+ON customers.order_id = Febsales.orderID
+WHERE orderdate IS NOT NULL
+AND orderdate <> 'Order Date';
+
+###Question 3, answer #3 ###
+
+SELECT distinct acctnum
+FROM BIT_DB.customers cust
+INNER JOIN BIT_DB.FebSales Feb
+ON cust.order_id=FEB.orderid
+WHERE length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+
+/*4. Which product was the cheapest one sold in January, and what was the price? */
+
+--First, I find out what's the lowest price within the table JanSales.--
+
+SELECT min (price)
+FROM BIT_DB.JanSales;
+
+--I then determined which product is the cheapest one sold in January by using subquery and using distinct statement to remove duplicates*/
+
+SELECT distinct product, price
+FROM BIT_DB.JanSales
+WHERE price= (SELECT min (price)
+FROM BIT_DB.JanSales);
+
+
+#### QUESTION 4 ANSWER #2 ####
+SELECT distinct product, price 
+FROM BIT_DB.JanSales 
+ORDER BY price ASC
+LIMIT 1;
+
+
+/*5. What is the total revenue for each product sold in January? (Revenue can be calculated using the number of products sold and the price of the products).*/
+
+SELECT product, sum(quantity)*price as revenue
+FROM BIT_DB.JanSales
+GROUP BY product
+ORDER BY product asc;
+
+#### QUESTION 5 ANSWER #2 ####
+
+SELECT sum(quantity)*price as revenue
+,product
+FROM BIT_DB.JanSales
+GROUP BY product;
+
+/*6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?*/
+
+SELECT product,sum(quantity)*price as revenue
+FROM BIT_DB.FebSales
+WHERE location='548 Lincoln St, Seattle, WA 98101'
+GROUP BY product;
+
+/*7. How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?*/
+
+
+
+
+
+
