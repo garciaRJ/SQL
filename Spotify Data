@@ -33,8 +33,29 @@ FROM BIT_DB.Spotifydata
 ORDER BY popularity desc
 LIMIT 10;
 
+/*List all songs with duration less than 4 mins in descending order*/
 
-/*What artist released the longest song? What's the average danceability for the 10 most popular songs?*/
+SELECT track_name, duration_ms
+FROM BIT_DB.Spotifydata
+WHERE duration_ms<240000
+ORDER BY duration_ms desc;
+
+
+/*What artist released the longest song? 
+
+##Answer 1##
+SELECT artist_name, MAX(duration_ms)
+FROM BIT_DB.Spotifydata;
+
+
+##Answer 2##
+SELECT artist_name, duration_ms
+FROM BIT_DB.Spotifydata
+ORDER BY duration_ms desc
+LIMIT 1;
+
+
+/*What's the average danceability for the 10 most popular songs?*/
 
 
 
@@ -43,3 +64,7 @@ LIMIT 10;
 SELECT artist_name, track_name, MIN(duration_ms)
 FROM BIT_DB.Spotifydata
 GROUP BY duration_ms;
+
+
+
+
