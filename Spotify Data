@@ -51,7 +51,7 @@ WHERE duration_ms<240000
 ORDER BY duration_ms desc;
 
 
-/*I determined the artist whho released the longest song*/
+/*I determined the artist who released the longest song*/
 
 ##Answer 1##
 SELECT artist_name, MAX(duration_ms)
@@ -88,6 +88,21 @@ SELECT  artist_name,
         'Top Star' AS tag
 FROM popularity_average_CTE
 WHERE average_popularity>=90;
+
+
+/*Average danceability for the 10 most popular songs*/
+
+--First, I run a query to filter the 10 most popular songs--
+
+SELECT track_name 
+FROM BIT_DB.Spotifydata 
+ORDER BY popularity desc LIMIT 10;
+
+--Then, I find the avergae danceability of the top 10 songs by using subquery--
+
+SELECT AVG(danceability)
+FROM BIT_DB.Spotifydata
+WHERE track_name IN (SELECT track_name FROM BIT_DB.Spotifydata ORDER BY popularity desc LIMIT 10); 
 
 
 
