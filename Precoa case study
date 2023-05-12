@@ -1,0 +1,57 @@
+#In this SQL, I'm querying a database sqlite3 with 2 tables (Precoa_polcies and commisson_schedule)
+to calculate the YTD commission earnings for the 15 agents.#
+
+/*1. First, I created the table Precoa_policies then I imported the csv. file into the database*/
+
+CREATE TABLE Precoa_policies (
+    agent_id          TEXT,
+    policy_id         TEXT,
+    sale_date         DATE,
+    funeral_home_id   TEXT,
+    product_type      TEXT,
+    individual_age    INTEGER,
+    individual_gender INTEGER,
+    health_class      TEXT,
+    pay_plan          INTEGER,
+    service_type      TEXT,
+    face_value        REAL,
+    commission        REAL
+    );
+
+
+/*2. Then, I created the second table commission_schedule then I imported the csv. file into the database*/
+
+CREATE TABLE commission_schedule (
+    individual_age        INTEGER,
+    pay_plan             INTEGER,
+    health_class          TEXT,
+    agent_commission_rate REAL
+);
+
+/*3.I used this query to perform data analysis and calculate the total commission earned for each policy. 
+I used LEFT JOIN to return all rows from the left table and matching rows from the right table based on the common columns. 
+If there are no matching rows in the right table, the result will contain NULL values for the right table's columns.*/
+
+SELECT
+  p.agent_id,
+  p.policy_id,
+  p.sale_date,
+  p.funeral_home_id,
+  p.product_type,
+  p.individual_age,
+  p.individual_gender,
+  p.health_class,
+  p.pay_plan,
+  p.service_type,
+  p.face_value,
+  CASE
+    WHEN p.product_type IN ('Insurance', 'Annuity') THEN c.agent_commission_rate * p.face_value
+    WHEN p.product_type = 'OAP' THEN 100
+    ELSE 0
+  END AS commission_earned
+FROM Precoa_policies p
+LEFT JOIN commission_schedule c
+ON p.individual_age = c.individual_age
+AND p.pay_plan = c.pay_plan
+AND p.health_class = c.health_class
+ORDER BY policy_id;
